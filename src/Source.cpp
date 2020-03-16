@@ -4,7 +4,7 @@
 
 
 //#include <glut.h> 
-//ME and SANJU teammates
+//ME and SANJU teammates Cg Project
 
 #include <stdio.h>    
 
