@@ -4,7 +4,7 @@
 
 
 //#include <glut.h> 
-//ME and SANJU teammates CG project
+
 
 #include <stdio.h>    
 
