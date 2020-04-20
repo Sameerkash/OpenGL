@@ -1,3 +1,3 @@
-﻿  glad.c
-  Source.cpp
+﻿  Source.cpp
+E:\Projects\OpenGL\src\Source.cpp(144,10): warning C4101: 'temp': unreferenced local variable
   OpenGL.vcxproj -> E:\Projects\OpenGL\bin\\Debug\OpenGL.exe
