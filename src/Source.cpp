@@ -14,8 +14,9 @@ int count = 1;		// For Ripple Sort, to keep count of how many are sorted at the 
 int k = 0;			// To Switch from Welcome screen to Main Screen
 int sorting = 0;		// 1 if Sorted
 const char* sort_string[] = { "Bubble Sort","Selection Sort","Insertion Sort","Ripple Sort" };
+const char* timeComplexity[] = { "N^2","N^2","N","N^2" };
 int sort_count = 0;	// To cycle through the string
-
+bool theme = 1;
 // Function to display text on screen char by char
 void bitmap_output(int x, int y, const char* string, void* font)
 {
@@ -38,11 +39,11 @@ void int_str(int rad, char r[])
 
 void display_text()
 {
-	glColor3f(0.0, 0.0, 0.0);
-	bitmap_output(150, 720, "DYNAMIC SORTING ALGORITHM VISUALIZER", GLUT_BITMAP_TIMES_ROMAN_24);
+	glColor3f(0.4, 0.4, 0.4);
+	bitmap_output(80, 720, "VISUALZATION OF TIME COMPLEXITY FOR SORTING ALGORITHM ", GLUT_BITMAP_TIMES_ROMAN_24);
 	glBegin(GL_LINE_LOOP);
-	glVertex2f(145, 700);
-	glVertex2f(520, 700);
+	glVertex2f(80, 700);
+	glVertex2f(625, 700);
 	glEnd();
 
 	// other text small font
@@ -56,9 +57,12 @@ void display_text()
 		bitmap_output(10, 555, "Press s to SORT", GLUT_BITMAP_9_BY_15);
 		bitmap_output(10, 535, "Press c to SELECT the sort algorithm", GLUT_BITMAP_9_BY_15);
 		bitmap_output(10, 515, "Press r to RANDOMISE", GLUT_BITMAP_9_BY_15);
-		bitmap_output(10, 495, "Esc to QUIT", GLUT_BITMAP_9_BY_15);
-		bitmap_output(10, 475, "Selected sort: ", GLUT_BITMAP_9_BY_15);
-		bitmap_output(150, 475, *(sort_string + sort_count), GLUT_BITMAP_9_BY_15);
+		bitmap_output(10, 495, "Press t to Change Theme", GLUT_BITMAP_9_BY_15);
+		bitmap_output(10, 475, "Esc to QUIT", GLUT_BITMAP_9_BY_15);
+		bitmap_output(10, 455, "Selected sort: ", GLUT_BITMAP_9_BY_15);
+		bitmap_output(150, 455, *(sort_string + sort_count), GLUT_BITMAP_9_BY_15);
+		bitmap_output(400, 475, "Time Complexity:", GLUT_BITMAP_9_BY_15);
+		bitmap_output(500, 475, *(timeComplexity + sort_count), GLUT_BITMAP_9_BY_15);
 	}
 	else if (sorting == 1)	// while sorting
 	{
@@ -71,13 +75,13 @@ void display_text()
 
 void front()
 {
-	glColor3f(0.0, 0.0, 0.0);
+	glColor3f(1.0, 1.0, 1.0);
 	bitmap_output(200, 660, "COMPUTER GRAPHICS PROJECT", GLUT_BITMAP_TIMES_ROMAN_24);
 	glBegin(GL_LINE_LOOP);
 	glVertex2f(200, 650);
 	glVertex2f(470, 650);
 	glEnd();
-	
+
 	bitmap_output(150, 560, "SAMEERA S KASHYAP(1KG17CS070)", GLUT_BITMAP_TIMES_ROMAN_24);
 	//glBegin(GL_LINE_LOOP);
 	//glVertex2f(325, 521);
@@ -95,7 +99,7 @@ void front()
 	glVertex2f(145, 470);
 	glVertex2f(520, 470);
 	glEnd();
-	
+
 	glColor3f(0.0, 0.0, 0.0);
 	glBegin(GL_QUADS);
 	glVertex2f(520, 120.0); glVertex2f(520, 170); glVertex2f(796, 170); glVertex2f(796, 120.0);
@@ -111,7 +115,7 @@ void Initialize() {
 
 	// Reset the array
 	for (temp1 = 0; temp1 < MAX; temp1++) {
-		a[temp1] = rand() % 100 + 1;
+		a[temp1] = rand() % 100 + 1; // generate 50 numbers 1-100
 		printf("%d ", a[temp1]);
 	}
 
@@ -121,7 +125,7 @@ void Initialize() {
 	count = 1;
 	flag = 0;
 
-	glClearColor(1, 1, 1, 1);
+	glClearColor(0, 0, 0, 0);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluOrtho2D(0, 699, 0, 799);
@@ -143,6 +147,7 @@ void display()
 {
 	int ix, temp;
 	glClear(GL_COLOR_BUFFER_BIT);
+	theme == 1 ? glClearColor(0, 0, 0, 0): glClearColor(0.85,0.85, 0.85, 0);
 
 	if (k == 0)
 		front();
@@ -154,16 +159,16 @@ void display()
 		{
 			glColor3f(1, 0, 0);
 			glBegin(GL_LINE_LOOP);
-			glVertex2f(10 + (700 / (MAX + 1)) * ix, 50);
-			glVertex2f(10 + (700 / (MAX + 1)) * (ix + 1), 50);
-			glVertex2f(10 + (700 / (MAX + 1)) * (ix + 1), 50 + a[ix] * 4);
-			glVertex2f(10 + (700 / (MAX + 1)) * ix, 50 + a[ix] * 4);
+			glVertex2f(10 + (700 / (MAX + 1)) * ix, 50); // bottom side
+			glVertex2f(10 + (700 / (MAX + 1)) * (ix + 1), 50);// top side
+			glVertex2f(10 + (700 / (MAX + 1)) * (ix + 1), 50 + a[ix] * 4); // right side
+			glVertex2f(10 + (700 / (MAX + 1)) * ix, 50 + a[ix] * 4); //left side 
 			glEnd();
 
 			int_str(a[ix], text);
 			//printf("\n%s",text);
-			glColor3f(0, 0, 0);
-			bitmap_output(12 + (700 / (MAX + 1)) * ix, 35, text, GLUT_BITMAP_TIMES_ROMAN_10);
+			glColor3f(0.4, 0.4, 0.4);
+			bitmap_output(12 + (700 / (MAX + 1)) * ix, 30, text, GLUT_BITMAP_TIMES_ROMAN_10);
 		}
 
 		if (swapflag || sorting == 0)
@@ -357,6 +362,8 @@ void keyboard(unsigned char key, int x, int y)
 		case 's':	sorting = 1; break;
 		case 'r':	Initialize(); break;
 		case 'c':	sort_count = (sort_count + 1) % SORT_NO;	break;
+		case 't':   if (theme == 0) { theme = 1;  }
+				else { theme = 0; } break;
 		}
 	}
 	if (k == 1 && sorting == 1)
